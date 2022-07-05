@@ -1,5 +1,5 @@
-class Knight
-  attr_accessor :position, :moves, :children, :parent
+class Piece
+  attr_accessor :position, :team
 
   MOVES = [[1,2], [2,1], [2,-1], [1,-2], [-1,-2], [-2,-1], [-2,1], [-1,2]].freeze
 
