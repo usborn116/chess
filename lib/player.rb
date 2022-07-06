@@ -22,7 +22,7 @@ class Player
         print "\nThat doesn't appear to be in the correct format. Remember: [Letter][Number] to [Letter][Number] (example: B2 to B4).\n> "
         move = input
       end
-      p move_format.match(move)
+      move_format.match(move)
     end
   
     private

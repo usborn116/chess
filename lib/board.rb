@@ -91,7 +91,7 @@ class Board
   end
 
   def display_x_axis
-    puts "     1    2    3    4    5    6    7    8  \n\n"
+    puts "     A    B    C    D    E    F    G    H  \n\n"
   end
 
   def self.clone(positions)
