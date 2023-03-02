@@ -1,5 +1,5 @@
 class Piece
-  attr_accessor :position, :team
+  attr_accessor :position, :moves, :children, :parent
 
   MOVES = [[1,2], [2,1], [2,-1], [1,-2], [-1,-2], [-2,-1], [-2,1], [-1,2]].freeze
 
@@ -10,29 +10,39 @@ class Piece
     @parent = parent
   end
 
-  def possible_moves(position, result = [])
+  private
+
+  def possible_moves(position)
     next_moves = MOVES.map do |move|
       move.each_with_index.map { |n, i| n + @position[i] unless (n + @position[i]).negative? || (n + @position[i]) > 8 }
     end
     next_moves.delete_if { |move| move.include?(nil) }
     next_moves
   end
+
 end
 
 class Board
+
   def knight_moves(start, end_pos)
     current = make_tree(start, end_pos)
     history = []
     make_history(current, history, start)
     print_knight_moves(history, start, end_pos)
   end
- 
+
+  private
+  
+  def piecemaker(pos, parent = nil)
+    Piece.new(pos, parent)
+  end
+
   def make_tree(start, end_pos)
-    queue = [Knight.new(start)]
+    queue = [piecemaker(start)]
     current = queue.shift
     until current.position == end_pos
       current.moves.each do |move|
-        current.children << knight = Knight.new(move, current)
+        current.children << knight = piecemaker(move, current)
         queue << knight
       end
       current = queue.shift
@@ -55,7 +65,4 @@ class Board
   end
 end
 
-game = Board.new
-
-game.knight_moves([0, 0], [3, 3])
-puts ''
+Board.new.knight_moves([0, 0], [7, 8])
